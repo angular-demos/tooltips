@@ -1,0 +1,7 @@
+@import "variables";
+@import "mixins";
+/**
+ * Import the variables allow them to be visible in the component style SCSS files.
+ */
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";

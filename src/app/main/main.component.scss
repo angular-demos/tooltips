@@ -1,0 +1,12 @@
+@import "../variables";
+
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .container {
+    margin-top: ($navbar-padding-y * 2) + $nav-link-height + $spacer;
+  }
+}
