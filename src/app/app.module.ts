@@ -3,13 +3,15 @@ import {NgModule} from '@angular/core';
 
 import {MainModule} from './main/main.module';
 import {MainComponent} from './main/main.component';
-import {ButtonsModule} from './buttons/buttons.module';
+import {OverviewModule} from './overview/overview.module';
+import {ExamplesModule} from './examples/examples.module';
 
 @NgModule({
   imports: [
     BrowserModule,
+    ExamplesModule,
     MainModule,
-    ButtonsModule
+    OverviewModule
   ],
   bootstrap: [
     MainComponent
