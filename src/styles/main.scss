@@ -1,2 +1,7 @@
 @import "variables";
 @import "mixins";
+
+/**
+ * Bootstrap 4 uses rem units instead of px, and that means we will be using rem units for any customization.
+ */
+@import "~bootstrap/scss/bootstrap";
