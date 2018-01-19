@@ -11,5 +11,8 @@
 
     .buttons {
         margin-bottom: $spacer * 4;
+        .btn {
+            margin-right: 1rem;
+        }
     }
 }
