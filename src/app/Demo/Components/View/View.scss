@@ -1,0 +1,11 @@
+@import "../Config";
+
+:host {
+    display: block;
+    position: relative;
+    margin-top: $spacer * 4;
+
+    .buttons {
+        text-align: center;
+    }
+}

@@ -1,12 +1,8 @@
-@import "../variables";
+@import "../Config";
 
 :host {
   display: block;
   position: relative;
   width: 100%;
   height: 100%;
-
-  text-align: center;
-
-  padding-top: 10rem;
 }

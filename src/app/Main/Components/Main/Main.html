@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/">Tooltips</a>
+    <button class="navbar-toggler"
+            (click)="toggleCollapse = !toggleCollapse"
+            type="button"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" [class.show]="toggleCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/demo">Demo</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main role="main" class="container">
+    <router-outlet></router-outlet>
+</main>
