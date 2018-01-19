@@ -5,7 +5,11 @@
     position: relative;
     margin-top: $spacer * 4;
 
+    .row {
+        margin-bottom: $spacer;
+    }
+
     .buttons {
-        text-align: center;
+        margin-bottom: $spacer * 4;
     }
 }

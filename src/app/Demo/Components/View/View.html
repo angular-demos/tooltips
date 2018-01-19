@@ -1,8 +1,43 @@
-<div class="row">
+<div class="row buttons">
     <div class="col">
-        <div class="buttons">
-            <button class="btn btn-outline-primary">Button A</button>
-            <button class="btn btn-outline-secondary">Button B</button>
+        <div class="btn-group">
+            <button
+                *ngFor="let tip of tips"
+                [tooltip]="tip.tooltip"
+                class="btn btn-outline-primary">{{tip.name}}
+            </button>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h4>
+            Buttons
+            <small class="text-muted">Customize the buttons and tooltips.</small>
+        </h4>
+
+        <form>
+            <div class="form-group">
+                <label for="countInput">Count</label>
+                <input class="form-control"
+                       id="countInput"
+                       name="count"
+                       min="1"
+                       type="number"
+                       placeholder="Number of buttons"
+                       [ngModel]="count"
+                       (ngModelChange)="setCount($event)">
+            </div>
+
+            <div *ngFor="let tip of tips"
+                 class="form-group">
+                <label for="inputTooltip{{tip.id}}">{{tip.name}}</label>
+                <input class="form-control"
+                       id="inputTooltip{{tip.id}}"
+                       placeholder="Tooltip Message"
+                       name="tooltip{{tip.id}}"
+                       [(ngModel)]="tip.tooltip">
+            </div>
+        </form>
     </div>
 </div>
