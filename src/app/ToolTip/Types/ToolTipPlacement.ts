@@ -5,9 +5,17 @@ export class ToolTipPlacement {
     /**
      * Constructor
      */
-    public constructor(private _message: string,
+    public constructor(private _id: number,
+                       private _message: string,
                        private _pos: string,
                        private _rect: ClientRect) {
+    }
+
+    /**
+     * Read-only tooltip ID
+     */
+    public get id(): number {
+        return this._id;
     }
 
     /**
@@ -35,6 +43,6 @@ export class ToolTipPlacement {
      * Creates a new placement with a new bounding rect.
      */
     public withRect(rect: ClientRect) {
-        return new ToolTipPlacement(this.message, this.position, rect);
+        return new ToolTipPlacement(this._id, this._message, this._pos, rect);
     }
 }

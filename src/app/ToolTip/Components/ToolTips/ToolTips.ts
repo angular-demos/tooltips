@@ -9,6 +9,11 @@ import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
 })
 export class ToolTipsComponent implements OnDestroy {
     /**
+     * A unique number used to generate aria-describedby
+     */
+    private static ids: number = 0;
+
+    /**
      * A list of active tooltip messages.
      */
     public placements: ToolTipPlacement[] = [];
@@ -37,7 +42,7 @@ export class ToolTipsComponent implements OnDestroy {
      * Displays a tooltip by adding it to the list of placements.
      */
     public add(message: string, position: string, rect: ClientRect): ToolTipPlacement {
-        const placement = new ToolTipPlacement(message, position, rect);
+        const placement = new ToolTipPlacement(ToolTipsComponent.ids++, message, position, rect);
         this.placements.push(placement);
         if (!this.distroyed) {
             this.change.detectChanges();

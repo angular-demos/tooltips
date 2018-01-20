@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener, Input, OnChanges, OnDestroy, Optional, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, OnChanges, OnDestroy, Optional, Renderer2, SimpleChanges} from '@angular/core';
 import {ToolTipsComponent} from '../../Components/ToolTips/ToolTips';
 import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
 
@@ -23,12 +23,6 @@ export class ToolTipDirective implements OnDestroy, OnChanges {
     public position: string;
 
     /**
-     * Indicates if the tooltip should auto show on clicks.
-     */
-    @Input('tooltip-clickable')
-    public clickable: boolean = true;
-
-    /**
      * Handle of the active tooltip.
      */
     private placement: ToolTipPlacement = null;
@@ -36,7 +30,9 @@ export class ToolTipDirective implements OnDestroy, OnChanges {
     /**
      * Constructor
      */
-    public constructor(@Optional() private tooltips: ToolTipsComponent, private el: ElementRef) {
+    public constructor(@Optional() private tooltips: ToolTipsComponent,
+                       private el: ElementRef,
+                       private render: Renderer2) {
         if (!this.tooltips) {
             throw new Error('Tooltip requires a wrapping parent of type tooltips.');
         }
@@ -67,7 +63,7 @@ export class ToolTipDirective implements OnDestroy, OnChanges {
      */
     @HostListener('click', ['$event'])
     public onClick(event: Event) {
-        if (this.clickable) {
+        if (!this.placement) {
             this.show();
         }
     }
@@ -109,6 +105,9 @@ export class ToolTipDirective implements OnDestroy, OnChanges {
                 this.position || 'top',
                 this.el.nativeElement.getBoundingClientRect()
             );
+
+            // for accessibility the tooltip is linked to the parent DOM element
+            this.render.setAttribute(this.el.nativeElement, 'aria-describedby', 'tooltip' + this.placement.id);
         }
     }
 
@@ -119,7 +118,7 @@ export class ToolTipDirective implements OnDestroy, OnChanges {
         if (this.placement) {
             this.tooltips.remove(this.placement);
         }
-
+        this.render.removeAttribute(this.el.nativeElement, 'aria-describedby');
         this.placement = null;
     }
 }
