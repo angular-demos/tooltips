@@ -57,26 +57,29 @@
                 </div>
 
                 <div *ngFor="let tip of tips">
-                    <div class="form-group">
-                        <label for="inputTooltip{{tip.id}}">{{tip.name}}</label>
-                        <input class="form-control"
-                               id="inputTooltip{{tip.id}}"
-                               placeholder="Tooltip Message"
-                               name="tooltip{{tip.id}}"
-                               [(ngModel)]="tip.tooltip">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPosition{{tip.id}}">Placement</label>
-                        <select class="form-control"
-                                id="inputPosition{{tip.id}}"
-                                name="position{{tip.id}}"
-                                [(ngModel)]="tip.position">
-                            <option>top</option>
-                            <option>bottom</option>
-                            <option>left</option>
-                            <option>right</option>
-                        </select>
-                    </div>
+                    <fieldset>
+                        <legend class="scheduler-border">{{tip.name}}</legend>
+                        <div class="form-group">
+                            <label for="inputTooltip{{tip.id}}">Message</label>
+                            <input class="form-control"
+                                   id="inputTooltip{{tip.id}}"
+                                   placeholder="Tooltip Message"
+                                   name="tooltip{{tip.id}}"
+                                   [(ngModel)]="tip.tooltip">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPosition{{tip.id}}">Placement</label>
+                            <select class="form-control"
+                                    id="inputPosition{{tip.id}}"
+                                    name="position{{tip.id}}"
+                                    [(ngModel)]="tip.position">
+                                <option>top</option>
+                                <option>bottom</option>
+                                <option>left</option>
+                                <option>right</option>
+                            </select>
+                        </div>
+                    </fieldset>
                 </div>
             </form>
         </div>

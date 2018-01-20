@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 /**
  * Describes a single button on the demo page.
@@ -19,12 +19,11 @@ interface DemoButton {
     templateUrl: './View.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnInit, OnChanges {
+export class ViewComponent implements OnInit {
     /**
      * Number of buttons to show.
      */
-    @Input()
-    public count: number = 1;
+    public count: number;
 
     /**
      * The width for page content.
@@ -52,39 +51,42 @@ export class ViewComponent implements OnInit, OnChanges {
      * After the component is ready.
      */
     public ngOnInit(): void {
-        this.update();
-    }
-
-    /**
-     * The button count was changed.
-     */
-    public ngOnChanges(changes: SimpleChanges): void {
-        this.update();
+        this.tips = [
+            {
+                id: 0,
+                name: 'Button A',
+                tooltip: 'Hello World',
+                position: 'top'
+            }, {
+                id: 1,
+                name: 'Button B',
+                tooltip: 'Hello World',
+                position: 'top'
+            }
+        ];
+        this.count = this.tips.length;
     }
 
     /**
      * Updates the number of buttons.
      */
     public setCount(value: number) {
-        this.count = value;
-        this.update();
-    }
-
-    /**
-     * Updates the list of buttons.
-     */
-    public update() {
-        this.tips = [];
-        let char = 'A';
-        for (let i = 0; i < this.count; i++) {
-            this.tips.push({
-                id: i,
-                name: 'Button ' + char,
-                tooltip: 'Hello World',
-                position: 'top'
-            });
-            char = String.fromCharCode(char.charCodeAt(0) + 1);
+        if (this.count < value) {
+            let char = String.fromCharCode('A'.charCodeAt(0) + this.count);
+            for (let i = this.count; i < value; i++) {
+                this.tips.push({
+                    id: i,
+                    name: 'Button ' + char,
+                    tooltip: 'Hello World',
+                    position: 'top'
+                });
+                char = String.fromCharCode(char.charCodeAt(0) + 1);
+            }
+        } else {
+            this.tips = this.tips.slice(0, value);
         }
+
+        this.count = this.tips.length;
         this.change.detectChanges();
     }
 }
