@@ -68,9 +68,22 @@ export class ToolTipDirective implements OnDestroy, OnChanges {
         }
     }
 
+    /**
+     * Closes the tooltip when clicked outside.
+     */
     @HostListener('document:click', ['$event'])
     public onDocumentClick(event: Event) {
         if (event.target !== this.el.nativeElement) {
+            this.close();
+        }
+    }
+
+    /**
+     * Closes the tooltip when ESC is pressed.
+     */
+    @HostListener('document:keyup', ['$event'])
+    public onDocumentKeyUp(event: KeyboardEvent) {
+        if (event.keyCode === 27) {
             this.close();
         }
     }
