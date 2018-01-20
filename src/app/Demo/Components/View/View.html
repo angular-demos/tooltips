@@ -1,55 +1,87 @@
-<div class="row buttons">
-    <div class="col">
-        <button
-            *ngFor="let tip of tips"
-            [tooltip]="tip.tooltip"
-            [tooltip-pos]="tip.position"
-            class="btn btn-outline-primary">{{tip.name}}
-        </button>
+<div [class.container-fluid]="container == 'fluid'"
+     [class.container]="container == 'fixed'">
+    <div class="row buttons"
+         [class.buttons-left]="alignment == 'left'"
+         [class.buttons-center]="alignment == 'center'"
+         [class.buttons-right]="alignment == 'right'">
+        <div class="col">
+            <button
+                *ngFor="let tip of tips"
+                [tooltip]="tip.tooltip"
+                [tooltip-pos]="tip.position"
+                class="btn btn-outline-primary">{{tip.name}}
+            </button>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <h4>
-            Buttons
-            <small class="text-muted">Customize the buttons and tooltips.</small>
-        </h4>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>
+                Buttons
+                <small class="text-muted">Customize the buttons and tooltips.</small>
+            </h4>
 
-        <form>
-            <div class="form-group">
-                <label for="countInput">Count</label>
-                <input class="form-control"
-                       id="countInput"
-                       name="count"
-                       min="1"
-                       type="number"
-                       placeholder="Number of buttons"
-                       [ngModel]="count"
-                       (ngModelChange)="setCount($event)">
-            </div>
-
-            <div *ngFor="let tip of tips">
+            <form>
                 <div class="form-group">
-                    <label for="inputTooltip{{tip.id}}">{{tip.name}}</label>
+                    <label for="countInput">Count</label>
                     <input class="form-control"
-                           id="inputTooltip{{tip.id}}"
-                           placeholder="Tooltip Message"
-                           name="tooltip{{tip.id}}"
-                           [(ngModel)]="tip.tooltip">
+                           id="countInput"
+                           name="count"
+                           min="1"
+                           type="number"
+                           placeholder="Number of buttons"
+                           [ngModel]="count"
+                           (ngModelChange)="setCount($event)">
                 </div>
+
                 <div class="form-group">
-                    <label for="inputPosition{{tip.id}}">Placement</label>
+                    <label for="containerInput">Container</label>
                     <select class="form-control"
-                            id="inputPosition{{tip.id}}"
-                            name="position{{tip.id}}"
-                            [(ngModel)]="tip.position">
-                        <option>top</option>
-                        <option>bottom</option>
-                        <option>left</option>
-                        <option>right</option>
+                            id="containerInput"
+                            name="container"
+                            [(ngModel)]="container">
+                        <option value="fluid">Fluid</option>
+                        <option value="fixed">Fixed</option>
                     </select>
                 </div>
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <label for="alignmentInput">Alignment</label>
+                    <select class="form-control"
+                            id="alignmentInput"
+                            name="alignment"
+                            [(ngModel)]="alignment">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                </div>
+
+                <div *ngFor="let tip of tips">
+                    <div class="form-group">
+                        <label for="inputTooltip{{tip.id}}">{{tip.name}}</label>
+                        <input class="form-control"
+                               id="inputTooltip{{tip.id}}"
+                               placeholder="Tooltip Message"
+                               name="tooltip{{tip.id}}"
+                               [(ngModel)]="tip.tooltip">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPosition{{tip.id}}">Placement</label>
+                        <select class="form-control"
+                                id="inputPosition{{tip.id}}"
+                                name="position{{tip.id}}"
+                                [(ngModel)]="tip.position">
+                            <option>top</option>
+                            <option>bottom</option>
+                            <option>left</option>
+                            <option>right</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="force-scrolling"></div>
     </div>
 </div>

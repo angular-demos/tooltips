@@ -39,8 +39,18 @@ export class ToolTipDirective implements OnInit, OnDestroy, OnChanges {
     /**
      * Updates the tooltip placement when the window is resized.
      */
-    @HostListener('window:resize', ['$event'])
-    public onWindowResize(event) {
+    @HostListener('window:resize')
+    public onWindowResize() {
+        if (this.placement) {
+            this.placement = this.tooltips.update(this.placement, this.el.nativeElement.getBoundingClientRect());
+        }
+    }
+
+    /**
+     * Updates the tooltip placement when the window is scrolled.
+     */
+    @HostListener('window:scroll')
+    public onWindowScroll() {
         if (this.placement) {
             this.placement = this.tooltips.update(this.placement, this.el.nativeElement.getBoundingClientRect());
         }

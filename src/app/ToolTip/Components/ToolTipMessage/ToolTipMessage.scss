@@ -5,7 +5,7 @@
  */
 :host {
     display: block;
-    position: absolute;
+    position: fixed;
     width: 200px;
     word-wrap: break-word;
     z-index: $zindex-tooltip;

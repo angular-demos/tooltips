@@ -27,6 +27,16 @@ export class ViewComponent implements OnInit, OnChanges {
     public count: number = 1;
 
     /**
+     * The width for page content.
+     */
+    public container: string = 'fixed';
+
+    /**
+     * The alignment for buttons.
+     */
+    public alignment: string = 'left';
+
+    /**
      * A list of buttons with tooltips.
      */
     public tips: DemoButton[] = [];

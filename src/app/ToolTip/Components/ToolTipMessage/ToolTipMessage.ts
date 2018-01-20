@@ -88,8 +88,6 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
         const rect = this.getMessageRect();
         const arrow = this.getArrowRect();
 
-        console.log(arrow);
-
         switch (this.placement.position) {
             case 'top':
                 this.top = parent.top - rect.height - arrow.height * 2;
