@@ -56,26 +56,41 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
 
     }
 
+    /**
+     * Show an arrow on top.
+     */
     @HostBinding('class.arrow-top')
     public get isTop(): boolean {
         return this._position === 'top';
     }
 
+    /**
+     * Show an arrow on bottom.
+     */
     @HostBinding('class.arrow-bottom')
     public get isBottom(): boolean {
         return this._position === 'bottom';
     }
 
+    /**
+     * Show an arrow on the left.
+     */
     @HostBinding('class.arrow-left')
     public get isLeft(): boolean {
         return this._position === 'left';
     }
 
+    /**
+     * Show an arrow on the right.
+     */
     @HostBinding('class.arrow-right')
     public get isRight(): boolean {
         return this._position === 'right';
     }
 
+    /**
+     * Prevent clicks from closing the tool tip.
+     */
     @HostListener('click', ['$event'])
     public onClick(event: Event) {
         event.stopImmediatePropagation();

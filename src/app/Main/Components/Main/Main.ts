@@ -1,5 +1,8 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 
+/**
+ * This component displays the top nav bar.
+ */
 @Component({
   selector: 'app-main',
   templateUrl: './Main.html',

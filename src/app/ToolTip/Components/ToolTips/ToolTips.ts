@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
 
+/**
+ * This is the parent component that handles the rendering of all tool tips. It must be added to the main template.
+ */
 @Component({
     selector: 'tooltips',
     styleUrls: ['./ToolTips.scss'],
