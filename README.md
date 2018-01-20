@@ -95,11 +95,11 @@ methods on `ToolTipsComponent` which is injected via the constructor.
 ### ToolTipPlacement
 
 This is an *immutable* object that describes where a tool tip should be displayed, and
-what it the message is. 
+what the tool tip message is. 
 
 ### ToolTipMessageComponent
 
-This is the component that actually displays a tool tip message. It contains the logic
+This is the component that displays a single tool tip message. It contains the logic
 for edge collisions with the browser.
 
 ## CSS and UX
