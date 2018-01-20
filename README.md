@@ -48,6 +48,12 @@ An example usage:
 This approach allows the `[tooltip]` directive to easily notify the parent `<tooltips>` when and how to
 display a tool tip.
 
+## Accessibility
+
+This demo provides accessibility features by adding the `aria-describedby` attribute to
+DOM elements when a tool tip is displayed. This attribute points to the tool tip element
+which contains the `role="tooltip"` attribute. 
+
 ## Design
 
 This demo was designed to make it easier to test different aspects of tool tips:
@@ -68,6 +74,33 @@ Modules are described as follows:
 - Main is the bootstrap module that starts the demo.
 - Demo module handles the tooltip demonstration.
 - ToolTip module handles the UI components for tooltips.
+
+## How It Works
+
+Tool tip support is added by inserting the `<tooltips>` component in the `BodyComponent` 
+located in the *Main* module. This `ToolTipsComponent` acts like a global service as 
+it is *injected* via the dependency injector into child `[tooltip]` directives.
+
+### ToolTipsComponent
+
+This component handles the displaying of tool tips by using a `*ngFor` on a 
+collection of `ToolTipPlacement` objects. This makes it easy to support either a
+single tool tip or multiple at once.
+
+### ToolTipDirective
+
+The `ToolTipDirective` handles the click events and calls the `add()` and `remove()` 
+methods on `ToolTipsComponent` which is injected via the constructor.
+
+### ToolTipPlacement
+
+This is an *immutable* object that describes where a tool tip should be displayed, and
+what it the message is. 
+
+### ToolTipMessageComponent
+
+This is the component that actually displays a tool tip message. It contains the logic
+for edge collisions with the browser.
 
 ## CSS and UX
 

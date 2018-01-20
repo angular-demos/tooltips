@@ -125,6 +125,9 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
         this.change.detectChanges();
     }
 
+    /**
+     * Calculates the position of a tool tip relative to an edge on the target.
+     */
     private moveMessage(pos: string) {
         const parent = this.placement.rect;
         const rect = this.getMessageRect();
