@@ -7,6 +7,7 @@ interface DemoButton {
     id: number;
     name: string;
     tooltip: string;
+    position: string;
 }
 
 /**
@@ -23,7 +24,7 @@ export class ViewComponent implements OnInit, OnChanges {
      * Number of buttons to show.
      */
     @Input()
-    public count: number = 2;
+    public count: number = 1;
 
     /**
      * A list of buttons with tooltips.
@@ -69,7 +70,8 @@ export class ViewComponent implements OnInit, OnChanges {
             this.tips.push({
                 id: i,
                 name: 'Button ' + char,
-                tooltip: 'Hello World'
+                tooltip: 'Hello World',
+                position: 'top'
             });
             char = String.fromCharCode(char.charCodeAt(0) + 1);
         }

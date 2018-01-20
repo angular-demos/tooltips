@@ -1,12 +1,105 @@
 @import "../Config";
 
+/**
+ * The CSS styles for the "arrow" on the tooltips are taken from Bootstrap's tooltip SASS source code.
+ */
 :host {
     display: block;
     position: absolute;
     width: 200px;
+    word-wrap: break-word;
     z-index: $zindex-tooltip;
+    margin: $tooltip-margin;
+    font-size: $font-size-sm;
 
-    .message {
-        border: 1px solid red;
+    .arrow {
+        display: block;
+        position: absolute;
+        width: $tooltip-arrow-width;
+        height: $tooltip-arrow-height;
+
+        &::before {
+            position: absolute;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+    }
+
+    &.arrow-top {
+        padding: $tooltip-arrow-height 0;
+
+        .arrow {
+            bottom: 0;
+            left: 50%;
+            margin-left: -($tooltip-arrow-width/2);
+
+            &::before {
+                top: 0;
+                border-width: $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
+                border-top-color: $tooltip-arrow-color;
+            }
+        }
+    }
+
+    &.arrow-right {
+        padding: 0 $tooltip-arrow-height;
+
+        .arrow {
+            left: 0;
+            width: $tooltip-arrow-height;
+            height: $tooltip-arrow-width;
+            top: 50%;
+            margin-top: -($tooltip-arrow-width/2);
+
+            &::before {
+                right: 0;
+                border-width: ($tooltip-arrow-width / 2) $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
+                border-right-color: $tooltip-arrow-color;
+            }
+        }
+    }
+
+    &.arrow-bottom {
+        padding: $tooltip-arrow-height 0;
+
+        .arrow {
+            top: 0;
+            left: 50%;
+            margin-left: -($tooltip-arrow-width/2);
+
+            &::before {
+                bottom: 0;
+                border-width: 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+                border-bottom-color: $tooltip-arrow-color;
+            }
+        }
+    }
+
+    &.arrow-left {
+        padding: 0 $tooltip-arrow-height;
+
+        .arrow {
+            right: 0;
+            width: $tooltip-arrow-height;
+            height: $tooltip-arrow-width;
+            top: 50%;
+            margin-top: -($tooltip-arrow-width/2);
+
+            &::before {
+                left: 0;
+                border-width: ($tooltip-arrow-width / 2) 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+                border-left-color: $tooltip-arrow-color;
+            }
+        }
+    }
+
+    .tooltip-inner {
+        max-width: $tooltip-max-width;
+        padding: $tooltip-padding-y $tooltip-padding-x;
+        color: $tooltip-color;
+        text-align: center;
+        background-color: $tooltip-bg;
+        @include border-radius($border-radius);
     }
 }

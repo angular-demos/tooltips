@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges} from '@angular/core';
 import {ToolTipsComponent} from '../../Components/ToolTips/ToolTips';
 import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
 
@@ -9,7 +9,7 @@ import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
     selector: '[tooltip]',
     exportAs: 'tooltip'
 })
-export class ToolTipDirective implements OnInit, OnDestroy {
+export class ToolTipDirective implements OnInit, OnDestroy, OnChanges {
     /**
      * The message to display.
      */
@@ -60,6 +60,16 @@ export class ToolTipDirective implements OnInit, OnDestroy {
      */
     public ngOnDestroy(): void {
         this.close();
+    }
+
+    /**
+     * Handles changes on tooltip inputs.
+     */
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.placement) {
+            this.close();
+            this.show();
+        }
     }
 
     /**
