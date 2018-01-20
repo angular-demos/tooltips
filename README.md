@@ -1,4 +1,4 @@
-# ToolTips - [MiniApp](https://angular-demos.github.io/tooltips/)
+# ToolTips - [ToolTips](https://angular-demos.github.io/tooltips/)
 
 This is a demonstration on how to create tool tips with Angular 5.
 
@@ -72,4 +72,4 @@ Modules are described as follows:
 ## CSS and UX
 
 The styles used to color the tooltip and create the tooltip arrows were taken from the Bootstrap 4 SASS
-source code. No other functionality from copied from the BootStrap project or other source.
+source code. No other functionality was copied from the BootStrap project or other source.
