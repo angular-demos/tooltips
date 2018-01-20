@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, OnChanges, OnDestroy, Optional, SimpleChanges} from '@angular/core';
 import {ToolTipsComponent} from '../../Components/ToolTips/ToolTips';
 import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
 
@@ -9,7 +9,7 @@ import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
     selector: '[tooltip]',
     exportAs: 'tooltip'
 })
-export class ToolTipDirective implements OnInit, OnDestroy, OnChanges {
+export class ToolTipDirective implements OnDestroy, OnChanges {
     /**
      * The message to display.
      */
@@ -21,6 +21,12 @@ export class ToolTipDirective implements OnInit, OnDestroy, OnChanges {
      */
     @Input('tooltip-pos')
     public position: string;
+
+    /**
+     * Indicates if the tooltip should auto show on clicks.
+     */
+    @Input('tooltip-clickable')
+    public clickable: boolean = true;
 
     /**
      * Handle of the active tooltip.
@@ -57,12 +63,20 @@ export class ToolTipDirective implements OnInit, OnDestroy, OnChanges {
     }
 
     /**
-     * Debug
+     * Shows the tooltip when clicked (optional).
      */
-    public ngOnInit(): void {
-        window.setTimeout(() => {
+    @HostListener('click', ['$event'])
+    public onClick(event: Event) {
+        if (this.clickable) {
             this.show();
-        });
+        }
+    }
+
+    @HostListener('document:click', ['$event'])
+    public onDocumentClick(event: Event) {
+        if (event.target !== this.el.nativeElement) {
+            this.close();
+        }
     }
 
     /**
@@ -86,7 +100,8 @@ export class ToolTipDirective implements OnInit, OnDestroy, OnChanges {
      * Displays the tooltip placement.
      */
     public show() {
-        this.close();
+        this.tooltips.removeAll();
+        this.placement = null;
 
         if (this.message) {
             this.placement = this.tooltips.add(

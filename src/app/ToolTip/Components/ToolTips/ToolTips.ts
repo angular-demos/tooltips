@@ -29,6 +29,7 @@ export class ToolTipsComponent implements OnDestroy {
      * Don't update tooltips anymore.
      */
     public ngOnDestroy(): void {
+        this.placements = [];
         this.distroyed = true;
     }
 
@@ -44,11 +45,24 @@ export class ToolTipsComponent implements OnDestroy {
         return placement;
     }
 
+    /**
+     * Removing a placement removes the tooltip from the page.
+     */
     public remove(placement: ToolTipPlacement) {
         const indx: number = this.placements.indexOf(placement);
         if (indx !== -1) {
             this.placements.splice(indx, 1);
         }
+        if (!this.distroyed) {
+            this.change.detectChanges();
+        }
+    }
+
+    /**
+     * Removes all tooltips from the page.
+     */
+    public removeAll() {
+        this.placements = [];
         if (!this.distroyed) {
             this.change.detectChanges();
         }

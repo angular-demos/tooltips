@@ -11,6 +11,7 @@
     z-index: $zindex-tooltip;
     margin: $tooltip-margin;
     font-size: $font-size-sm;
+    user-select: none;
 
     .arrow {
         display: block;

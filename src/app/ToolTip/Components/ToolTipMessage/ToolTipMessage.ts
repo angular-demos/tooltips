@@ -4,6 +4,7 @@ import {
     Component,
     ElementRef,
     HostBinding,
+    HostListener,
     Inject,
     Input,
     OnChanges,
@@ -73,6 +74,13 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
     @HostBinding('class.arrow-right')
     public get isRight(): boolean {
         return this._position === 'right';
+    }
+
+    @HostListener('click', ['$event'])
+    public onClick(event: Event) {
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        event.preventDefault();
     }
 
     /**
