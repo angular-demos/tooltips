@@ -29,7 +29,7 @@ export class ViewComponent implements OnInit, OnChanges {
     /**
      * The width for page content.
      */
-    public container: string = 'fixed';
+    public container: string = 'fluid';
 
     /**
      * The alignment for buttons.

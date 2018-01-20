@@ -84,4 +84,17 @@
     <div class="row">
         <div class="force-scrolling"></div>
     </div>
+    <div class="row buttons"
+         [class.buttons-left]="alignment == 'left'"
+         [class.buttons-center]="alignment == 'center'"
+         [class.buttons-right]="alignment == 'right'">
+        <div class="col">
+            <button
+                *ngFor="let tip of tips"
+                [tooltip]="tip.tooltip"
+                [tooltip-pos]="tip.position"
+                class="btn btn-outline-primary">{{tip.name}}
+            </button>
+        </div>
+    </div>
 </div>

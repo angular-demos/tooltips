@@ -4,12 +4,14 @@ import {
     Component,
     ElementRef,
     HostBinding,
+    Inject,
     Input,
     OnChanges,
     OnInit,
     SimpleChanges
 } from '@angular/core';
 import {ToolTipPlacement} from '../../Types/ToolTipPlacement';
+import {DOCUMENT} from '@angular/common';
 
 /**
  * This component handles the displaying of a tooltip message near a trigger element.
@@ -40,30 +42,37 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
     public left: number;
 
     /**
+     * The final position of the tooltip after collisions.
+     */
+    private _position: string;
+
+    /**
      * Constructor
      */
-    public constructor(private change: ChangeDetectorRef, private el: ElementRef) {
+    public constructor(private change: ChangeDetectorRef,
+                       private el: ElementRef,
+                       @Inject(DOCUMENT) private document: any) {
 
     }
 
     @HostBinding('class.arrow-top')
     public get isTop(): boolean {
-        return (this.placement && this.placement.position) === 'top';
+        return this._position === 'top';
     }
 
     @HostBinding('class.arrow-bottom')
     public get isBottom(): boolean {
-        return (this.placement && this.placement.position) === 'bottom';
+        return this._position === 'bottom';
     }
 
     @HostBinding('class.arrow-left')
     public get isLeft(): boolean {
-        return (this.placement && this.placement.position) === 'left';
+        return this._position === 'left';
     }
 
     @HostBinding('class.arrow-right')
     public get isRight(): boolean {
-        return (this.placement && this.placement.position) === 'right';
+        return this._position === 'right';
     }
 
     /**
@@ -84,11 +93,36 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
      * Sets the position of the tooltip.
      */
     public update() {
+        const rect = this.getMessageRect();
+
+        this._position = this.placement.position;
+        this.moveMessage(this._position);
+
+        // handle vertical collision
+        if (this.top < window.scrollX && this._position === 'top') {
+            this._position = 'bottom';
+        } else if (this.top + rect.height > window.innerHeight && this._position === 'bottom') {
+            this._position = 'top';
+        }
+
+        // handle horizontal collision
+        if (this.left < 0) {
+            this._position = 'right';
+        } else if (this.left + rect.width > window.innerWidth) {
+            this._position = 'left';
+        }
+
+        this.moveMessage(this._position);
+
+        this.change.detectChanges();
+    }
+
+    private moveMessage(pos: string) {
         const parent = this.placement.rect;
         const rect = this.getMessageRect();
         const arrow = this.getArrowRect();
 
-        switch (this.placement.position) {
+        switch (pos) {
             case 'top':
                 this.top = parent.top - rect.height - arrow.height * 2;
                 this.left = parent.left - (rect.width / 2) + (parent.width / 2);
@@ -106,8 +140,6 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
                 this.left = parent.left + parent.width;
                 break;
         }
-
-        this.change.detectChanges();
     }
 
     /**
@@ -127,5 +159,4 @@ export class ToolTipMessageComponent implements OnChanges, OnInit {
         }
         return {bottom: 0, height: 10, left: 0, right: 0, top: 0, width: 10};
     }
-
 }
